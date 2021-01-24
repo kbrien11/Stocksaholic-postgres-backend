@@ -10,14 +10,14 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-DATABASE_URL = 'postgresql://postgres:mbdask1013@localhost/stocks-backend'
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'DATABASE_URL'
 db = SQLAlchemy(app)
 
 ma = Marshmallow(app)
 
 def create_session(config):
-    engine = create_engine(config['DATABASE_URI'])
+    engine = create_engine(config['DATABASE_URL'])
     Session = sessionmaker(bind=engine)
     session = Session()
     session._model_changes = {}
