@@ -1,5 +1,5 @@
 from flask import Flask,jsonify,request
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 # from flask_sqlalchemy import SQLAlchemy
 from util import hash_pass,generate_key, crypto_market_cap,Crypto_Exchange_Data, seven_day_crypto_chart, crypto_coins, Gemini_volume,Coinbase_volume,Binance_volume,get_price, generate_key,get_price_of_ticker, top_gainers,top_losers,crypto_news,usd_chart,crypto_stats, Logo,tracking_chart,related_Companies,Crypto,stats,stats_low,pe_ratio,day_change,stock_description,chart,ytd_change,crypto_chart
 from flask_marshmallow import Marshmallow
@@ -7,7 +7,6 @@ from sqlalchemy.orm.attributes import flag_modified
 from sqlalchemy.sql import func
 from sqlalchemy import func,desc,and_
 from flask_cors import CORS
-from flask.ext.heroku import Heroku
 
 app = Flask(__name__)
 CORS(app)
@@ -15,7 +14,6 @@ CORS(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:mbdask1013@localhost/stocks-backend'
 db = SQLAlchemy(app)
-heroku = Heroku(app)
 ma = Marshmallow(app)
 
 def create_session(config):
