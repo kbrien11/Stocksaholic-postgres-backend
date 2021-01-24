@@ -549,6 +549,11 @@ def get_trades(api_key):
         return trades_schemas.jsonify(total_trades)
      return jsonify({'error':'invalid key'})
 
+#   test route
+
+@app.route('/')
+def hi ():
+    return jsonify ({"hi":"there"})
 
 
 if __name__ == "main":
