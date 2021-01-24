@@ -11,7 +11,7 @@ app = Flask(__name__)
 CORS(app)
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:mbdask1013@localhost/stocks-backend'
+app.config['SQLALCHEMY_DATABASE_URL'] = 'DATABASE_URL'
 db = SQLAlchemy(app)
 
 ma = Marshmallow(app)
