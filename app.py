@@ -162,7 +162,7 @@ trade_schema = TradeSchema()
 
 # creating user
 
-@app.route('/api/create_user', methods=['POST'])
+@app.route('https://stocksholics.herokuapp.com/api/create_user', methods=['POST'])
 def create_account():
         data = request.get_json()
         if data:
