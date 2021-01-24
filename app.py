@@ -551,7 +551,7 @@ def get_trades(api_key):
 
 #   test route
 
-@app.route('/practice')
+@app.route('/practice', methods=['GET'])
 def hi ():
     return jsonify ({"hi":"there"})
 
