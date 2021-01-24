@@ -162,7 +162,7 @@ trade_schema = TradeSchema()
 
 # creating user
 
-@app.route('api/create_user', methods=['POST'])
+@app.route('/api/create_user', methods=['POST'])
 def create_account():
         data = request.get_json()
         if data:
@@ -551,7 +551,7 @@ def get_trades(api_key):
 
 #   test route
 
-@app.route('/practice', methods=['GET'])
+@app.route('/', methods=['GET'])
 def hi ():
     return jsonify ({"hi":"there"})
 
