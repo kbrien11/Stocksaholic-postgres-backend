@@ -1,3 +1,5 @@
 from app import db
 
-db.create_all()
+def create_db():
+
+    db.create_all()
