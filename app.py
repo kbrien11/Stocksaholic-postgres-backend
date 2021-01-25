@@ -7,12 +7,14 @@ from sqlalchemy.orm.attributes import flag_modified
 from sqlalchemy.sql import func
 from sqlalchemy import func,desc,and_
 from flask_cors import CORS
+import os
 
 app = Flask(__name__)
 CORS(app)
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:mbdask1013@localhost/stocks-backend'
+SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
