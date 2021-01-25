@@ -178,7 +178,7 @@ def create_account():
             db.session.add(new_account)
             db.session.commit()
             print(new_account.api_key)
-            return user_schema.jsonify(new_account)
+            return jsonify({"user":"created"})
         return user_schema.jsonify(new_account)
 
 
