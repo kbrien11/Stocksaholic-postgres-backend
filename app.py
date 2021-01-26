@@ -17,7 +17,7 @@ ENV ='prod'
 if ENV =='dev':
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:mbdask1013@localhost/stocks-backend'
 else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgressql://voymtfonfsfwqo:0518aaf9f940c906e7d22ba47dc3396e4ad913d9272239fb7818e8444b219c40@ec2-3-208-168-0.compute-1.amazonaws.com:5432/d9pshq3tua652'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://voymtfonfsfwqo:0518aaf9f940c906e7d22ba47dc3396e4ad913d9272239fb7818e8444b219c40@ec2-3-208-168-0.compute-1.amazonaws.com:5432/d9pshq3tua652'
 
 
 # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
