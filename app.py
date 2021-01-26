@@ -13,8 +13,8 @@ app = Flask(__name__)
 CORS(app)
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-# SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:mbdask1013@localhost/stocks-backend'
+SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
@@ -170,19 +170,15 @@ trade_schema = TradeSchema()
 
 @app.route('/api/create_user', methods=['POST'])
 def create_account():
-        email = request.args.get('email')
-        password = request.args.get('password')
-        first_name = request.args.get('first_name')
-        last_name = request.args.get('last_name')
-       # email, password, balance = views.create_account()
-        new_account = User(None, email =email, password =password,first_name =first_name,last_name =last_name,api_key = "", balance = "", equity = "")
-        new_account.api_key = generate_key()
-        db.session.add(new_account)
-        db.session.commit()
-        print(new_account.api_key)
-        return jsonify({"user":"created"})
-      
-
+        data = request.get_json()
+        if data:
+        # email, password, balance = views.create_account()
+            new_account = User(None, email =data['email'], password =data['password'],first_name =data['first_name'],last_name =data['last_name'], api_key = None, balance = None, equity = None)
+            new_account.api_key = generate_key()
+            db.session.add(new_account)
+            db.session.commit()
+            print(new_account.api_key)
+            return user_schema.jsonify(new_account)
 
  #  logging user in
 
