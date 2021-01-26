@@ -13,17 +13,17 @@ app = Flask(__name__)
 CORS(app)
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:mbdask1013@localhost/stocks-backend'
-SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+# SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
-def create_session(config):
-    engine = create_engine(config['DATABASE_URL'])
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    session._model_changes = {}
-    return session
+# def create_session(config):
+#     engine = create_engine(config['DATABASE_URL'])
+#     Session = sessionmaker(bind=engine)
+#     session = Session()
+#     session._model_changes = {}
+#     return session
 
 
 class User(db.Model):
