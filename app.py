@@ -1,4 +1,4 @@
-from flask import Flask,jsonify,requests
+from flask import Flask,jsonify,request
 from flask_sqlalchemy import SQLAlchemy
 # from flask_sqlalchemy import SQLAlchemy
 from util import hash_pass,generate_key, crypto_market_cap,Crypto_Exchange_Data, seven_day_crypto_chart, crypto_coins, Gemini_volume,Coinbase_volume,Binance_volume,get_price, generate_key,get_price_of_ticker, top_gainers,top_losers,crypto_news,usd_chart,crypto_stats, Logo,tracking_chart,related_Companies,Crypto,stats,stats_low,pe_ratio,day_change,stock_description,chart,ytd_change,crypto_chart
@@ -170,15 +170,16 @@ trade_schema = TradeSchema()
 
 @app.route('/api/create_user', methods=['POST'])
 def create_account():
-        data = request.get_json()
-        
-        # email, password, balance = views.create_account()
-        new_account = User(None, email =data['email'], password =data['password'],first_name =data['first_name'],last_name =data['last_name'], api_key = None, balance = None, equity = None)
-        new_account.api_key = generate_key()
-        db.session.add(new_account)
-        db.session.commit()
-        print(new_account.api_key)
-        return user_schema.jsonify(new_account)
+        if request.method == 'POST':
+            data = request.get_json()
+            
+            # email, password, balance = views.create_account()
+            new_account = User(None, email =data['email'], password =data['password'],first_name =data['first_name'],last_name =data['last_name'], api_key = None, balance = None, equity = None)
+            new_account.api_key = generate_key()
+            db.session.add(new_account)
+            db.session.commit()
+            print(new_account.api_key)
+            return user_schema.jsonify(new_account)
 
  #  logging user in
 
