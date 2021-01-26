@@ -172,7 +172,7 @@ trade_schema = TradeSchema()
 def create_account():
         data = request.get_json()
        # email, password, balance = views.create_account()
-        new_account = User(None, email =data['email'], password =data['password'],first_name =data['first_name'],last_name =data['last_name'], api_key = "", balance = "", equity = "")
+        new_account = User(None, email =data['email'], password =data['password'],first_name =data['first_name'],last_name =data['last_name'])
         new_account.api_key = generate_key()
         db.session.add(new_account)
         db.session.commit()
