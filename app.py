@@ -13,7 +13,7 @@ app = Flask(__name__)
 CORS(app)
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] =  "postgres://voymtfonfsfwqo:0518aaf9f940c906e7d22ba47dc3396e4ad913d9272239fb7818e8444b219c40@ec2-3-208-168-0.compute-1.amazonaws.com:5432/d9pshq3tua6529"
 # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
