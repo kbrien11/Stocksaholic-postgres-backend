@@ -32,7 +32,7 @@ ma = Marshmallow(app)
 #     return session
 
 
-class User(db.Model):
+class Accounts(db.Model):
     pk = db.Column(db.Integer, primary_key = True,unique = True)
     email = db.Column(db.String(120), unique = True)
     password = db.Column(db.String(200))
@@ -54,7 +54,7 @@ class User(db.Model):
 
 class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-         model = User
+         model = Accounts
          load_instance = True
          fields = ('pk','email','password','first_name','last_name','api_key','balance','equity')
     
@@ -69,7 +69,7 @@ user_schema = UserSchema()
 
 class Date(db.Model):
     pk = db.Column(db.Integer, primary_key = True)
-    user_pk = db.Column(db.Integer,db.ForeignKey('user.pk'))
+    user_pk = db.Column(db.Integer,db.ForeignKey('accounts.pk'))
     equity = db.Column(db.Integer)
     unix_time = db.Column(db.String(15))
 
@@ -92,7 +92,7 @@ date_schema = DateSchema()
 
 class Positions(db.Model):
     pk = db.Column(db.Integer, primary_key = True)
-    user_pk = db.Column(db.Integer,db.ForeignKey('user.pk'))
+    user_pk = db.Column(db.Integer,db.ForeignKey('accounts.pk'))
     ticker = db.Column(db.String(30))
     number_shares = db.Column(db.Integer)
     equity = db.Column(db.Integer)
@@ -118,7 +118,7 @@ position_schema = PositionSchema()
 
 class Tracking(db.Model):
     pk = db.Column(db.Integer, primary_key = True)
-    user_pk = db.Column(db.Integer,db.ForeignKey('user.pk'))
+    user_pk = db.Column(db.Integer,db.ForeignKey('accounts.pk'))
     ticker = db.Column(db.String(30))
     tracking = db.Column(db.Integer,default = 0)
 
@@ -141,7 +141,7 @@ tracking_schema = TrackingSchema()
 
 class Trades(db.Model):
     pk = db.Column(db.Integer, primary_key = True)
-    user_pk = db.Column(db.Integer,db.ForeignKey('user.pk'))
+    user_pk = db.Column(db.Integer,db.ForeignKey('accounts.pk'))
     ticker = db.Column(db.String(30))
     number_shares = db.Column(db.Integer)
     trade_type = db.Column(db.String(15))
@@ -178,7 +178,7 @@ trade_schema = TradeSchema()
 def create_account():
         if request.method == 'POST':
             data = request.get_json()
-            new_account = User(None, email =data['email'], password =data['password'],first_name =data['first_name'],last_name =data['last_name'], api_key = "", balance = "", equity = "")
+            new_account = Accounts(None, email =data['email'], password =data['password'],first_name =data['first_name'],last_name =data['last_name'], api_key = "", balance = "", equity = "")
             new_account.api_key = generate_key()
             db.session.add(new_account)
             db.session.commit()
@@ -193,7 +193,7 @@ def login():
     if data:
         email = data['email']
         password = hash_pass(data['password'])
-        user = User.query.filter_by(email=email,password=password).first()
+        user = Accounts.query.filter_by(email=email,password=password).first()
         if user:
             print(user)
             result = user_schema.dump(user)
@@ -206,7 +206,7 @@ def login():
 
 @app.route('/api/top_gainers/<api_key>',methods = ['GET'])
 def gainers(api_key):
-    user = User.query.filter_by(api_key=api_key)
+    user = Accounts.query.filter_by(api_key=api_key)
     if user:
         gainers = top_gainers()
         return jsonify({"gainers":gainers})
@@ -214,7 +214,7 @@ def gainers(api_key):
 
 @app.route('/api/top_losers/<api_key>',methods = ['GET'])
 def losers(api_key):
-    user = User.query.filter_by(api_key=api_key)
+    user = Accounts.query.filter_by(api_key=api_key)
     if user:
         losers = top_losers()
         return jsonify({"losers":losers})
@@ -226,7 +226,7 @@ def losers(api_key):
 
 @app.route('/api/crypto_Chart/<ticker>/<api_key>', methods=['GET'])
 def crypto_chart_data(ticker,api_key):
-    user = User.query.filter_by(api_key=api_key)
+    user = Accounts.query.filter_by(api_key=api_key)
     if user:
         data = crypto_chart(ticker)
         seven_day_chart = seven_day_crypto_chart(ticker)
@@ -235,7 +235,7 @@ def crypto_chart_data(ticker,api_key):
 
 @app.route('/api/crypto_price/<ticker>/<api_key>', methods=['GET'])
 def lookupCrypto(ticker,api_key):
-    user = User.query.filter_by(api_key=api_key)
+    user = Accounts.query.filter_by(api_key=api_key)
     if user:
         price = Crypto(ticker)
         return jsonify({'crypto':price})
@@ -281,7 +281,7 @@ def weekly_crypto_chart(ticker):
 
 @app.route('/api/<api_key>/<amount>', methods=['POST'])
 def deposit(api_key,amount):
-     user = db.session.query(User).filter_by(api_key=api_key).first()
+     user = db.session.query(Accounts).filter_by(api_key=api_key).first()
      if user:
         balance = user.balance
         balance += int(amount)
@@ -295,7 +295,7 @@ def deposit(api_key,amount):
 
 @app.route('/api/<api_key>/balance', methods=['GET'])
 def get_balanace(api_key):
-    user = User.query.filter_by(api_key=api_key).first()
+    user = Accounts.query.filter_by(api_key=api_key).first()
     if user:
         result = user_schema.dump(user)
         return user_schema.jsonify(result)
@@ -308,7 +308,7 @@ def get_balanace(api_key):
 @app.route('/api/<api_key>/buy', methods=['POST'])
 def buy(api_key):
     data=request.get_json()
-    user = db.session.query(User).filter_by(api_key=api_key).first()
+    user = db.session.query(Accounts).filter_by(api_key=api_key).first()
     if user:
         bal = user.balance
         equ = user.equity
@@ -346,7 +346,7 @@ def buy(api_key):
 @app.route('/api/<api_key>/sell', methods=['POST'])
 def sell(api_key):
     data=request.get_json()
-    user = db.session.query(User).filter_by(api_key=api_key).first()
+    user = db.session.query(Accounts).filter_by(api_key=api_key).first()
     if user:
         ticker = request.get_json()['ticker']
         amount = request.get_json()['amount']
@@ -376,7 +376,7 @@ def sell(api_key):
 
 @app.route('/api/price/<ticker>/<api_key>', methods=['GET'])
 def lookup(ticker,api_key):
-    user = db.session.query(User).filter_by(api_key=api_key).first()
+    user = db.session.query(Accounts).filter_by(api_key=api_key).first()
     if user:
         price = get_price(ticker)
         description = stock_description(ticker)
@@ -392,7 +392,7 @@ def lookup(ticker,api_key):
 def track(ticker,api_key):
     data = request.get_json()
     ticker = data.get('ticker')
-    user = db.session.query(User).filter_by(api_key=api_key).first()
+    user = db.session.query(Accounts).filter_by(api_key=api_key).first()
     if user:
         new_track = Tracking(None,user_pk = user.pk, ticker = ticker,tracking = None)
         result = tracking_schema.dump(new_track)
@@ -405,7 +405,7 @@ def track(ticker,api_key):
 #  getting balance for stocks page
 @app.route('/api/<token>/balance', methods=['GET'])
 def get_bal(token):
-    user = db.session.query(User).filter_by(api_key=api_key).first()
+    user = db.session.query(Accounts).filter_by(api_key=api_key).first()
     if user:
         result = user_schema.dump(user)
         return jsonify({'balance': float(account.balance)})
@@ -414,7 +414,7 @@ def get_bal(token):
 #  tracking chart data-- price and change
 @app.route('/api/prices/<ticker>/<api_key>', methods=['GET'])
 def look_price(api_key,ticker):
-    user = db.session.query(User).filter_by(api_key=api_key).first()
+    user = db.session.query(Accounts).filter_by(api_key=api_key).first()
     if user:
         price = get_price_of_ticker(ticker)
         change = day_change(ticker)
@@ -426,7 +426,7 @@ def look_price(api_key,ticker):
 
 @app.route('/api/tracking_chart/<ticker>/<api_key>', methods=['GET'])
 def tracker_chart(api_key,ticker):
-    user = db.session.query(User).filter_by(api_key=api_key).first()
+    user = db.session.query(Accounts).filter_by(api_key=api_key).first()
     if user:      
         tracker = tracking_chart(ticker)
         return jsonify({"tracker":tracker})
@@ -439,7 +439,7 @@ def tracker_chart(api_key,ticker):
 
 @app.route('/api/<api_key>/positions',methods=['GET'])
 def get_positions(api_key):
-    user = db.session.query(User).filter_by(api_key=api_key).first()
+    user = db.session.query(Accounts).filter_by(api_key=api_key).first()
     if user:
         zero = 0
         res = db.session.query(Positions).filter_by(user_pk =user.pk).filter(Positions.number_shares >0).order_by(Positions.equity.desc()).limit(5)
@@ -471,7 +471,7 @@ def get_logo(ticker):
 
 @app.route('/api/equity_date/<api_key>',methods=['POST'])
 def get_date(api_key):
-    user = db.session.query(User).filter_by(api_key=api_key).first()
+    user = db.session.query(Accounts).filter_by(api_key=api_key).first()
     result = user_schema.dump(user)
     if user:
         equity = user.equity
@@ -488,7 +488,7 @@ def get_date(api_key):
 
 @app.route('/api/equity_chart/<api_key>', methods = ['GET'])
 def equity_chart(api_key):
-    user = db.session.query(User).filter_by(api_key=api_key).first()
+    user = db.session.query(Accounts).filter_by(api_key=api_key).first()
     result = user_schema.dump(user)
     if user:
         output = db.session.query(Date).filter_by(user_pk=user.pk).distinct(Date.unix_time).order_by(Date.unix_time.desc())
@@ -500,7 +500,7 @@ def equity_chart(api_key):
 
 @app.route('/api/<api_key>/equity', methods=['GET'])
 def get_equ(api_key):
-    user = db.session.query(User).filter_by(api_key=api_key).first()
+    user = db.session.query(Accounts).filter_by(api_key=api_key).first()
     data = request.get_json()
     solutions = []
     if user:
@@ -520,7 +520,7 @@ def get_equ(api_key):
 
 @app.route('/api/<api_key>/usd_chart',methods=['GET'])
 def usd_daily_chart(api_key):
-    user = db.session.query(User).filter_by(api_key=api_key).first()
+    user = db.session.query(Accounts).filter_by(api_key=api_key).first()
     if user:
         return jsonify({"USD":usd_chart()})
     return jsonify({'error':'invalid key'})
@@ -530,7 +530,7 @@ def usd_daily_chart(api_key):
 
 @app.route('/api/<api_key>/recent',methods=['GET'])
 def get_home_trades(api_key):
-    user = db.session.query(User).filter_by(api_key=api_key).first()
+    user = db.session.query(Accounts).filter_by(api_key=api_key).first()
     if user:
         trades = db.session.query(Trades).filter_by(user_pk=user.pk).order_by(Trades.unix_time.desc()).limit(5)
         result = trades_schemas.dump(trades)
@@ -540,7 +540,7 @@ def get_home_trades(api_key):
 #  getting tracking stocks for homepage 
 @app.route('/api/gettracking/<api_key>', methods =['GET'])
 def get_tracking(api_key):
-     user = db.session.query(User).filter_by(api_key=api_key).first()
+     user = db.session.query(Accounts).filter_by(api_key=api_key).first()
      if user:
         tracks = db.session.query(Tracking).filter_by(user_pk = user.pk, tracking = 1).all()
         result = tracking_schemas.dump(tracks)
@@ -553,7 +553,7 @@ def get_tracking(api_key):
 
 @app.route('/api/<api_key>/trades',methods=['GET'])
 def get_trades(api_key):
-     user = db.session.query(User).filter_by(api_key=api_key).first()
+     user = db.session.query(Accounts).filter_by(api_key=api_key).first()
      if user:
         result = db.session.query(Trades).filter_by(user_pk = user.pk).all()
         total_trades = trades_schemas.dump(result)
