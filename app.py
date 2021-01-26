@@ -171,10 +171,10 @@ trade_schema = TradeSchema()
 @app.route('/api/create_user', methods=['POST'])
 def create_account():
         if request.method == 'POST':
-            data = request.get_json()
+            data = request.get_data()
             
             # email, password, balance = views.create_account()
-            new_account = User(None, email =data['email'], password =data['password'],first_name =data['first_name'],last_name =data['last_name'], api_key = None, balance = None, equity = None)
+            new_account = User(None, email =data['email'], password =data['password'],first_name =data['first_name'],last_name =data['last_name'], api_key = "", balance = "", equity = "")
             new_account.api_key = generate_key()
             db.session.add(new_account)
             db.session.commit()
