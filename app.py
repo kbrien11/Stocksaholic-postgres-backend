@@ -175,7 +175,7 @@ def create_account():
         first_name = request.args.get('first_name')
         last_name = request.args.get('last_name')
        # email, password, balance = views.create_account()
-        new_account = User(None, email =email, password =password,first_name =first_name,last_name =last_name)
+        new_account = User(None, email =email, password =password,first_name =first_name,last_name =last_name,api_key = "", balance = "", equity = "")
         new_account.api_key = generate_key()
         db.session.add(new_account)
         db.session.commit()
