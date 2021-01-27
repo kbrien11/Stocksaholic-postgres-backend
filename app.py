@@ -178,7 +178,7 @@ trade_schema = TradeSchema()
 def create_account():
         if request.method == 'POST':
             data = request.get_json()
-            new_account = Accounts(None, email =data['email'], password =data['password'],first_name =data['first_name'],last_name =data['last_name'], api_key = "", balance = "", equity = "")
+            new_account = Accounts(pk=None, email =data["email"], password =data["password"],first_name =data["first_name"],last_name =data["last_name"], api_key = "", balance = 0, equity = 0)
             new_account.api_key = generate_key()
             db.session.add(new_account)
             db.session.commit()
