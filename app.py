@@ -336,7 +336,7 @@ def buy(api_key):
             db.session.add(current_position)
             db.session.commit()
         time=data.get('unix_time')
-        new_trade = Trades(None,user_pk = user.pk, ticker = ticker,number_shares = amount,trade_type = Deposit,unix_time = time,equity = current_price)
+        new_trade = Trades(None,user_pk = user.pk, ticker = ticker,number_shares = int(amount),trade_type = Deposit,unix_time = time,equity = current_price)
         db.session.add(new_trade)
         db.session.commit()
         return user_schema.jsonify(user)
