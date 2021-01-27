@@ -144,7 +144,7 @@ class Trades(db.Model):
     user_pk = db.Column(db.Integer,db.ForeignKey('accounts.pk'))
     ticker = db.Column(db.String(30))
     number_shares = db.Column(db.Integer)
-    trade_type = db.Column(db.String(15))
+    trade_type = db.Column(db.String(25))
     unix_time = db.Column(db.String(30))
     equity = db.Column(db.Integer)
 
