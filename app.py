@@ -145,7 +145,7 @@ class Trades(db.Model):
     ticker = db.Column(db.String(30))
     number_shares = db.Column(db.Integer)
     trade_type = db.Column(db.String(15))
-    unix_time = db.Column(db.String(15))
+    unix_time = db.Column(db.String(30))
     equity = db.Column(db.Integer)
 
     def __init__(self,pk, user_pk, ticker, number_shares,equity, trade_type ="", unix_time=""):
@@ -361,7 +361,7 @@ def sell(api_key):
             user.equity -= transaction_price
             position.equity -= (transaction_price)
             position.number_shares -= int(amount)
-            time=data.get('unix_time')
+            time = data.get("unix_time")
             new_trade = Trades(None,user_pk = user.pk, ticker = ticker,number_shares = amount,trade_type = Withdrawal,unix_time = time,equity = transaction_price)
             db.session.add(new_trade)
             db.session.commit()
