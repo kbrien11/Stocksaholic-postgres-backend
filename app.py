@@ -5,7 +5,7 @@ from util import hash_pass,generate_key, crypto_market_cap,Crypto_Exchange_Data,
 from flask_marshmallow import Marshmallow
 from sqlalchemy.orm.attributes import flag_modified
 from sqlalchemy.sql import func
-from sqlalchemy import func,desc,and_
+from sqlalchemy import func,desc,and_,asc
 from flask_cors import CORS
 import os
 
@@ -491,7 +491,7 @@ def equity_chart(api_key):
     user = db.session.query(Accounts).filter_by(api_key=api_key).first()
     result = user_schema.dump(user)
     if user:
-        output = db.session.query(Date).filter_by(user_pk=user.pk).distinct(Date.unix_time).order_by(Date.unix_time.desc())
+        output = db.session.query(Date).filter_by(user_pk=user.pk).distinct(Date.unix_time).order_by(Date.unix_time.asc())
         chart = date_schemas.dump(output)
         return date_schemas.jsonify(chart)
     return ({"error":"error"})
