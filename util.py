@@ -197,7 +197,7 @@ def Crypto_Exchange_Data():
   return gemini,binance,Coinbase,Kraken,bitstamp
 
 def crypto_coins():
-  quote_endpoint =("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,BCH,LTC,ZEC,ADA,XLM,DOT,LINK,BSV,EOS,XMR,TRX,NEO,AAVE,MKR,SNX&tsyms=USD")
+  quote_endpoint =("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP,BCH,LTC,ZEC,ADA,XLM,DOT,LINK,BSV,EOS,XMR,TRX,NEO,AAVE,MKR,SNX,UMA&tsyms=USD")
   response = requests.get(quote_endpoint)
   data = response.json()['RAW']
   btc = data['BTC']['USD']
@@ -218,7 +218,8 @@ def crypto_coins():
   mkr = data['MKR']['USD']
   aave = data['AAVE']['USD']
   snx = data['SNX']['USD']
-  return btc,eth,xrp,bch,zec,ltc,ada,DOT,xlm,link,bsv,eos,xmr,trx,neo,mkr,aave,snx
+  uma = data['UMA']['USD']
+  return btc,eth,xrp,bch,zec,ltc,ada,DOT,xlm,link,bsv,eos,xmr,trx,neo,mkr,aave,snx,uma
 
 def stats_low(ticker):
   quote_endpoint ="https://cloud.iexapis.com/stable/stock/{}/quote?token=pk_bc007805b9a3487db96520c1baac3a07"

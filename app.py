@@ -12,7 +12,7 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-ENV ='prod'
+ENV ='dev'
 
 if ENV =='dev':
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:mbdask1013@localhost/stocks-backend'
