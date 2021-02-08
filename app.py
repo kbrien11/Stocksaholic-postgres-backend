@@ -12,7 +12,7 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-ENV ='dev'
+ENV ='prod'
 
 if ENV =='dev':
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:mbdask1013@localhost/stocks-backend'
@@ -542,7 +542,7 @@ def get_home_trades(api_key):
 def get_tracking(api_key):
      user = db.session.query(Accounts).filter_by(api_key=api_key).first()
      if user:
-        tracks = db.session.query(Tracking).filter_by(user_pk = user.pk, tracking = 1).all()
+        tracks = db.session.query(Tracking).filter_by(user_pk = user.pk, tracking = 1).distinct(Tracking.ticker).all()
         result = tracking_schemas.dump(tracks)
         return tracking_schemas.jsonify(result)
      return jsonify({"error":"failed"})
