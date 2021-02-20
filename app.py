@@ -12,7 +12,7 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-ENV ='prod'
+ENV ='dev'
 
 if ENV =='dev':
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:mbdask1013@localhost/stocks-backend'
@@ -554,10 +554,11 @@ def delete_tracking(ticker,api_key):
     if user:
         data = request.get_json()
         ticker = data.get('ticker')
-        tracks = db.session.query(Tracking).filter_by(user_pk = user.pk, ticker =ticker).first
-        tracks.tracking = 0
-        print(tracking.ticker)
-        db.session.delete(tracks)
+        tracks = db.session.query(Tracking).filter_by(user_pk = user.pk, ticker=ticker)
+        print(tracks)
+        result = tracking_schemas.dump(tracks)
+        result.tracking = 0
+        db.session.delete(result)
         db.session.commit()
         return jsonify({"deleted":"success"})
     return jsonify({"error":"failed"})
