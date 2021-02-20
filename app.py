@@ -554,7 +554,7 @@ def delete_tracking(ticker,api_key):
     if user:
         data = request.get_json()
         ticker = data.get('ticker')
-        tracking = db.session.query(Tracking).filter_by(user_pk = user.pk, ticker =ticker).first()
+        tracking = db.session.query(Tracking).filter_by(user_pk = user.pk, ticker =ticker)
         tracking.tracking = 0
         db.session.commit()
         return jsonify({"deleted":"success"})
