@@ -1,0 +1,22 @@
+ pk | user_pk | ticker | tracking 
+----+---------+--------+----------
+  1 |       2 | pypl   |        1
+  5 |      23 | aapl   |        1
+  6 |      23 | aapl   |        1
+  7 |      23 | aapl   |        1
+  8 |      23 | aapl   |        1
+  9 |      23 | aapl   |        1
+ 10 |      23 | sbux   |        1
+ 15 |      41 | omc    |        1
+  2 |       1 | cme    |        0
+  3 |       1 | gme    |        0
+ 14 |       1 | sq     |        0
+ 12 |       1 | amzn   |        0
+  4 |       1 | aapl   |        0
+ 11 |       1 | aapl   |        0
+ 16 |       1 | aapl   |        1
+ 17 |       1 | amzn   |        1
+ 18 |       1 | gme    |        1
+ 13 |       1 | aapl   |        0
+(18 rows)
+
