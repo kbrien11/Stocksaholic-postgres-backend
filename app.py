@@ -558,7 +558,7 @@ def delete_tracking(ticker,api_key):
         result = tracking_schema.dump(tracking)
         tracking.tracking = 0
         db.session.commit()
-        return jsonify({"deleted":result.tracking})
+        return jsonify({"deleted":tracking.tracking})
     return jsonify({"error":"failed"})
 
 
