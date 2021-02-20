@@ -548,7 +548,7 @@ def get_tracking(api_key):
      return jsonify({"error":"failed"})
 
 # delete tracking stock from homepage
-@app.route('/api/deletetracking/<tickcer>/<api_key>', methods = ['POST'])
+@app.route('/api/deletetracking/<ticker>/<api_key>', methods = ['POST'])
 def delete_tracking(ticker,api_key):
     user = db.session.query(Accounts).filter_by(api_key=api_key).first()
     if user:
