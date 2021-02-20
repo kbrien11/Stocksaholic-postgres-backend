@@ -547,6 +547,21 @@ def get_tracking(api_key):
         return tracking_schemas.jsonify(result)
      return jsonify({"error":"failed"})
 
+# delete tracking stock from homepage
+@app.route('/api/deletetracking/<tickcer>/<api_key>', methods = ['POST'])
+def delete_tracking(ticker,api_key):
+    user = db.session.query(Accounts).filter_by(api_key=api_key).first()
+    if user:
+        ticker = data.get('ticker')
+        tracking = db.session.query(Tracking).filter_by(user_pk = user.pk, ticker =ticker).first()
+        tracking.ticker = 0
+        db.session.commit()
+        return jsonify({"deleted":"success"})
+    return jsonify({"error":"failed"})
+
+
+
+
 #  history page
 
 #  getting trade history
