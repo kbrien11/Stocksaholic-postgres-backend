@@ -8,6 +8,12 @@ from sqlalchemy.sql import func
 from sqlalchemy import func,desc,and_,asc
 from flask_cors import CORS
 import os
+from flask_mail import Mail, Message
+from config import SENDGRID_API_KEY
+
+
+
+
 
 app = Flask(__name__)
 CORS(app)
@@ -30,6 +36,17 @@ ma = Marshmallow(app)
 #     session = Session()
 #     session._model_changes = {}
 #     return session
+
+app.config['MAIL_SERVER'] = 'smtp.sendgrid.net'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'apikey'
+app.config['MAIL_PASSWORD'] = SENDGRID_API_KEY
+app.config['MAIL_DEFAULT_SENDER'] ='kbrien11@gmail.com'
+
+mail = Mail(app)
+
+
 
 
 class Accounts(db.Model):
@@ -180,9 +197,14 @@ def create_account():
             data = request.get_json()
             new_account = Accounts(pk=None, email =data["email"], password =data["password"],first_name =data["first_name"],last_name =data["last_name"], api_key = "", balance = 0, equity = 0)
             new_account.api_key = generate_key()
+            email = data['email']
+            print(email)
+            msg = Message('Welcome to stocksaholic', recipients=[email])
+            msg.body = 'Thank you for sighing up for StocksAholics'
+            mail.send(msg)
             db.session.add(new_account)
             db.session.commit()
-            print(new_account.api_key)
+           
             return user_schema.jsonify(new_account)
 
  #  logging user in
