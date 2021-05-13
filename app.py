@@ -7,7 +7,7 @@ from sqlalchemy.orm.attributes import flag_modified
 from sqlalchemy.sql import func
 from sqlalchemy import func,desc,and_,asc
 from flask_cors import CORS
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import os
 # from flask_mail import Mail, Message
 
