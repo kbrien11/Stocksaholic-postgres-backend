@@ -21,7 +21,7 @@ CORS(app)
 load_dotenv()
 ENV ='prod'
 
-if ENV =='dev':
+if ENV =='prod':
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:mbdask1013@localhost/stocks-backend'
 else:
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://amsyitkzdzjkas:e88d822caf94fad99130db7a730fc254c74dc57cebff4d8f7f6d5a385179607e@ec2-54-211-55-24.compute-1.amazonaws.com:5432/d4ejl85c4t0lqd'
