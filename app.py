@@ -9,7 +9,7 @@ from sqlalchemy import func,desc,and_,asc
 from flask_cors import CORS
 from dotenv import load_dotenv
 import os
-from flask_mail import Mail, Message
+# from flask_mail import Mail, Message
 
 
 
@@ -198,11 +198,11 @@ def create_account():
             data = request.get_json()
             new_account = Accounts(pk=None, email =data["email"], password =data["password"],first_name =data["first_name"],last_name =data["last_name"], api_key = "", balance = 0, equity = 0)
             new_account.api_key = generate_key()
-            email = data['email']
-            print(email)
-            msg = Message('Welcome to stocksaholic', recipients=[email])
-            msg.body = 'Thank you for sighing up for StocksAholics'
-            mail.send(msg)
+#             email = data['email']
+#             print(email)
+#             msg = Message('Welcome to stocksaholic', recipients=[email])
+#             msg.body = 'Thank you for sighing up for StocksAholics'
+#             mail.send(msg)
             db.session.add(new_account)
             db.session.commit()
            
