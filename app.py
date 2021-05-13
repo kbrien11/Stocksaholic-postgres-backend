@@ -10,7 +10,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 from flask_mail import Mail, Message
-from config import SENDGRID_API_KEY
+
 
 
 
