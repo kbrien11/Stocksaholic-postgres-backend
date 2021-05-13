@@ -7,6 +7,7 @@ from sqlalchemy.orm.attributes import flag_modified
 from sqlalchemy.sql import func
 from sqlalchemy import func,desc,and_,asc
 from flask_cors import CORS
+from dotenv import load_dotenv
 import os
 from flask_mail import Mail, Message
 from config import SENDGRID_API_KEY
@@ -17,7 +18,7 @@ from config import SENDGRID_API_KEY
 
 app = Flask(__name__)
 CORS(app)
-
+load_dotenv()
 ENV ='prod'
 
 if ENV =='dev':
@@ -41,7 +42,7 @@ app.config['MAIL_SERVER'] = 'smtp.sendgrid.net'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = 'apikey'
-app.config['MAIL_PASSWORD'] = SENDGRID_API_KEY
+app.config['MAIL_PASSWORD'] = os.getenv("SENDGRID_API_KEY")
 app.config['MAIL_DEFAULT_SENDER'] ='kbrien11@gmail.com'
 
 mail = Mail(app)
