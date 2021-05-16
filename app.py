@@ -220,8 +220,8 @@ def login():
         if user:
             print(user)
             result = user_schema.dump(user)
-            return user_schema.jsonify(user)
-        return False
+            return user_schema.jsonify(result)
+        return ({"error":"Entered wrong email or password"})
 
 
 
