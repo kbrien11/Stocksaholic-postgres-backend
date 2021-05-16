@@ -18,7 +18,7 @@ import os
 
 app = Flask(__name__)
 CORS(app)
-load_dotenv()
+
 ENV ='prod'
 
 if ENV =='prod':
