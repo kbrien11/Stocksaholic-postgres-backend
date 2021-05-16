@@ -595,7 +595,7 @@ def delete_tracking(ticker,api_key):
 def get_trades(api_key):
      user = db.session.query(Accounts).filter_by(api_key=api_key).first()
      if user:
-        print(user)
+        print(user.pk, user.first_name)
         result = db.session.query(Trades).filter_by(user_pk = user.pk).all()
         print(result)
         total_trades = trades_schemas.dump(result)
