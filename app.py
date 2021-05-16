@@ -431,7 +431,7 @@ def get_bal(token):
     user = db.session.query(Accounts).filter_by(api_key=api_key).first()
     if user:
         result = user_schema.dump(user)
-        return jsonify({'balance': float(account.balance)})
+        return jsonify({'balance': float(result.balance)})
     return jsonify({'error':'invalid key'})
 
 #  tracking chart data-- price and change
