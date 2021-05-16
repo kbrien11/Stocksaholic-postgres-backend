@@ -597,6 +597,7 @@ def get_trades(api_key):
      if user:
         result = db.session.query(Trades).filter_by(user_pk = user.pk).all()
         total_trades = trades_schemas.dump(result)
+        print(total_trades)
         return trades_schemas.jsonify(total_trades)
      return jsonify({'error':'invalid key'})
 
