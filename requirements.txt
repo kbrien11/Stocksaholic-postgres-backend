@@ -20,7 +20,6 @@ flask-heroku==0.1.9
 flask-marshmallow==0.14.0
 Flask-SQLAlchemy==2.4.4
 gunicorn==20.0.4
-heroku==0.1.4
 idna==2.10
 importlib-metadata==0.23
 ipykernel==5.1.3
