@@ -3,7 +3,7 @@ from hashlib import sha512
 import random
 
 def get_price(ticker):
-    iex_base = "https://api.iex.cloud/v1/data/CORE/IEX_TOPS"
+    iex_base = "ttps://api.iex.cloud/v1/data/CORE/IEX_TOPS/"
     quote_endpoint = iex_base + "{}?token="
     # TODO: get token
     token = "pk_5a751015049443ac85c68c5c25a71fd9"
@@ -27,7 +27,7 @@ def generate_key(length=15):
     return hashed_output[:length]
 
 def get_price_of_ticker(ticker):
-    iex_base = "https://api.iex.cloud/v1/data/CORE/IEX_TOPS"
+    iex_base = "https://api.iex.cloud/v1/data/CORE/IEX_TOPS/"
     quote_endpoint = iex_base + "{}?token="
     # TODO: get token
     token = "pk_5a751015049443ac85c68c5c25a71fd9"
