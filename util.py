@@ -9,11 +9,11 @@ def get_price(ticker):
     token = "pk_5a751015049443ac85c68c5c25a71fd9"
     response = requests.get(quote_endpoint.format(ticker) + token)
     print(response.json()[0])
-    data = response.json()['lastSalePrice']
-    peRatio = response.json()['lastSaleTime']
-    company = response.json()['sector']
-    symbol = response.json()['symbol']
-    market = response.json()['volume']
+    data = response.json()[0]['lastSalePrice']
+    peRatio = response.json()[0]['lastSaleTime']
+    company = response.json()[0]['sector']
+    symbol = response.json()[0]['symbol']
+    market = response.json()[0]['volume']
     return [company,symbol,data,peRatio,market] 
 
 def hash_pass(password, salt="SALT"):
