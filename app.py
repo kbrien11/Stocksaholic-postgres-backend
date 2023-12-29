@@ -403,10 +403,10 @@ def lookup(ticker,api_key):
     if user:
         price = get_price(ticker)
         # description = stock_description(ticker)
-        # chart_data = chart(ticker)
+        chart_data = chart(ticker)
         # logo = Logo(ticker)
         # related = related_Companies(ticker)
-        return jsonify({'current_price':price})
+        return jsonify({'current_price':price,"chartData":chart_data})
     return jsonify({"error":"failed"})
 
 
