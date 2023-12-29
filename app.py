@@ -402,11 +402,11 @@ def lookup(ticker,api_key):
     user = db.session.query(Accounts).filter_by(api_key=api_key).first()
     if user:
         price = get_price(ticker)
-        description = stock_description(ticker)
+        # description = stock_description(ticker)
         chart_data = chart(ticker)
-        logo = Logo(ticker)
-        related = related_Companies(ticker)
-        return jsonify({'current_price':price,"des":description,"chartData":chart_data,"logo":logo})
+        # logo = Logo(ticker)
+        # related = related_Companies(ticker)
+        return jsonify({'current_price':price,"chartData":chart_data})
     return jsonify({"error":"failed"})
 
 
