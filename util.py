@@ -8,6 +8,7 @@ def get_price(ticker):
     # TODO: get token
     token = "pk_bc007805b9a3487db96520c1baac3a07"
     response = requests.get(quote_endpoint.format(ticker) + token)#.json()['latestPrice']
+    print(response)
     data = response.json()['latestPrice']
     peRatio = response.json()['peRatio']
     company = response.json()['companyName']
