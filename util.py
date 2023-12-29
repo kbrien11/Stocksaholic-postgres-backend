@@ -7,7 +7,7 @@ def get_price(ticker):
     quote_endpoint = iex_base + "{}?token="
     # TODO: get token
     token = "pk_5a751015049443ac85c68c5c25a71fd9"
-    response = requests.get(quote_endpoint.format(ticker) + token)#.json()['latestPrice']
+    response = requests.get(quote_endpoint.format(ticker) + token)[0]
     print(response)
     data = response.json()['lastSalePrice']
     peRatio = response.json()['lastSaleTime']
@@ -31,7 +31,7 @@ def get_price_of_ticker(ticker):
     quote_endpoint = iex_base + "{}?token="
     # TODO: get token
     token = "pk_5a751015049443ac85c68c5c25a71fd9"
-    response = requests.get(quote_endpoint.format(ticker) + token)
+    response = requests.get(quote_endpoint.format(ticker) + token)[0]
     data = response.json()['lastSalePrice']
     return data
 
