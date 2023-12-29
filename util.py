@@ -45,7 +45,7 @@ def get_price_of_ticker(ticker):
 def chart(ticker):
   dates = []
   prices =[]
-  quote_endpoint =("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={}&outputsize=compact&apikey=74MPQ68EA8UASL2C")
+  quote_endpoint =("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={}&outputsize=compact&apikey=74MPQ68EA8UASL2C")
   response = requests.get(quote_endpoint.format(ticker))
   print(response.json())
   data = response.json()['Time Series (Daily)']
