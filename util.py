@@ -156,35 +156,35 @@ def Crypto (ticker):
   data = response.json()['USD']
   return data
 
-def stock_description(ticker):
-  quote_endpoint =("https://cloud.iexapis.com/stable/stock/{}/company?token=pk_bc007805b9a3487db96520c1baac3a07")
-  response = requests.get(quote_endpoint.format(ticker))
-  desc = response.json()['description']
-  ceo = response.json()['CEO']
-  empl = response.json()['employees']
-  industry = response.json()['industry']
-  state = response.json()['state']
-  city = response.json()['city']
-  sector = response.json()['sector']
-  return [desc,ceo,empl,industry,state,city,sector]
+# def stock_description(ticker):
+#   quote_endpoint =("https://cloud.iexapis.com/stable/stock/{}/company?token=pk_bc007805b9a3487db96520c1baac3a07")
+#   response = requests.get(quote_endpoint.format(ticker))
+#   desc = response.json()['description']
+#   ceo = response.json()['CEO']
+#   empl = response.json()['employees']
+#   industry = response.json()['industry']
+#   state = response.json()['state']
+#   city = response.json()['city']
+#   sector = response.json()['sector']
+#   return [desc,ceo,empl,industry,state,city,sector]
 
-def stats(ticker):
-  quote_endpoint ="https://cloud.iexapis.com/stable/stock/{}/quote?token=pk_bc007805b9a3487db96520c1baac3a07"
-  response = requests.get(quote_endpoint.format(ticker))
-  high = response.json()['week52High']
-  return high
+# def stats(ticker):
+#   quote_endpoint ="https://cloud.iexapis.com/stable/stock/{}/quote?token=pk_bc007805b9a3487db96520c1baac3a07"
+#   response = requests.get(quote_endpoint.format(ticker))
+#   high = response.json()['week52High']
+#   return high
 
-def related_Companies(ticker):
-  quote_endpoint ="https://cloud.iexapis.com/stable//stock/{}/news/last?token=pk_bc007805b9a3487db96520c1baac3a07"
-  response = requests.get(quote_endpoint.format(ticker))
-  related = response.json()
-  return related[-1:]
+# def related_Companies(ticker):
+#   quote_endpoint ="https://cloud.iexapis.com/stable//stock/{}/news/last?token=pk_bc007805b9a3487db96520c1baac3a07"
+#   response = requests.get(quote_endpoint.format(ticker))
+#   related = response.json()
+#   return related[-1:]
 
-def Logo(ticker):
-  quote_endpoint ="https://cloud.iexapis.com/stable/stock/{}/logo?token=pk_bc007805b9a3487db96520c1baac3a07"
-  response = requests.get(quote_endpoint.format(ticker))
-  logo = response.json()['url']
-  return logo
+# def Logo(ticker):
+#   quote_endpoint ="https://cloud.iexapis.com/stable/stock/{}/logo?token=pk_bc007805b9a3487db96520c1baac3a07"
+#   response = requests.get(quote_endpoint.format(ticker))
+#   logo = response.json()['url']
+#   return logo
 
 def Crypto_Exchange_Data():
   quote_endpoint =("https://min-api.cryptocompare.com/data/exchanges/general")
