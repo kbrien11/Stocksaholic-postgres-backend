@@ -500,7 +500,7 @@ def get_date(api_key):
         equity = user.equity
         data = request.get_json()
         time = data.get("unix_time")
-        new_date = Date(None,user.pk,equity,time)
+        new_date = Date(user.pk,equity,time)
         db.session.add(new_date)
         db.session.commit()
         return user_schema.jsonify(user)
