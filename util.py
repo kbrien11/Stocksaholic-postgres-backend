@@ -223,11 +223,11 @@ def crypto_coins():
   uma = data['UMA']['USD']
   return btc,eth,xrp,bch,zec,ltc,ada,DOT,xlm,link,bsv,eos,xmr,trx,neo,mkr,aave,snx,uma
 
-def stats_low(ticker):
-  quote_endpoint ="https://cloud.iexapis.com/stable/stock/{}/quote?token=pk_bc007805b9a3487db96520c1baac3a07"
-  response = requests.get(quote_endpoint.format(ticker))
-  low = response.json()['week52Low']
-  return low
+# def stats_low(ticker):
+#   quote_endpoint ="https://cloud.iexapis.com/stable/stock/{}/quote?token=pk_bc007805b9a3487db96520c1baac3a07"
+#   response = requests.get(quote_endpoint.format(ticker))
+#   low = response.json()['week52Low']
+#   return low
 
 def tracking_chart(ticker):
   dates = []
@@ -253,17 +253,17 @@ def chart(ticker):
   
   
 
-def pe_ratio(ticker):
-  quote_endpoint ="https://cloud.iexapis.com/stable/stock/{}/quote?token=pk_bc007805b9a3487db96520c1baac3a07"
-  response = requests.get(quote_endpoint.format(ticker))
-  ratio = response.json()['peRatio']
-  return ratio
+# def pe_ratio(ticker):
+#   quote_endpoint ="https://cloud.iexapis.com/stable/stock/{}/quote?token=pk_bc007805b9a3487db96520c1baac3a07"
+#   response = requests.get(quote_endpoint.format(ticker))
+#   ratio = response.json()['peRatio']
+#   return ratio
 
-def ytd_change(ticker):
-  quote_endpoint ="https://cloud.iexapis.com/stable/stock/{}/quote?token=pk_bc007805b9a3487db96520c1baac3a07"
-  response = requests.get(quote_endpoint.format(ticker))
-  ratio = response.json()['ytdChange']
-  return ratio
+# def ytd_change(ticker):
+#   quote_endpoint ="https://cloud.iexapis.com/stable/stock/{}/quote?token=pk_bc007805b9a3487db96520c1baac3a07"
+#   response = requests.get(quote_endpoint.format(ticker))
+#   ratio = response.json()['ytdChange']
+#   return ratio
 
 def top_gainers():
   end = ("https://financialmodelingprep.com/api/v3/gainers?apikey=8db666fce01a371b534ff479f0d23295")
@@ -285,12 +285,12 @@ def top_losers():
   
   
 
-def day_change(ticker):
-  quote_endpoint ="https://cloud.iexapis.com/stable/stock/{}/quote?token=pk_bc007805b9a3487db96520c1baac3a07"
-  response = requests.get(quote_endpoint.format(ticker))
-  change = response.json()['change']
+# def day_change(ticker):
+#   quote_endpoint ="https://cloud.iexapis.com/stable/stock/{}/quote?token=pk_bc007805b9a3487db96520c1baac3a07"
+#   response = requests.get(quote_endpoint.format(ticker))
+#   change = response.json()['change']
   
-  return change
+#   return change
 
 # def chart(ticker):
 #   dates = []
