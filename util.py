@@ -240,16 +240,16 @@ def tracking_chart(ticker):
     prices.append(data[i]['1. open'])
   return dates[:15],prices[:15]
 
-def chart(ticker):
-  dates = []
-  prices =[]
-  quote_endpoint =("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={}&outputsize=compact&apikey=74MPQ68EA8UASL2C")
-  response = requests.get(quote_endpoint.format(ticker))
-  data = response.json()['Time Series (Daily)']
-  for i in data:
-    dates.append(i)
-    prices.append(data[i]['1. open'])
-  return dates,prices
+# def chart(ticker):
+#   dates = []
+#   prices =[]
+#   quote_endpoint =("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={}&outputsize=compact&apikey=74MPQ68EA8UASL2C")
+#   response = requests.get(quote_endpoint.format(ticker))
+#   data = response.json()['Time Series (Daily)']
+#   for i in data:
+#     dates.append(i)
+#     prices.append(data[i]['1. open'])
+#   return dates,prices
   
   
 
