@@ -8,7 +8,6 @@ def get_price(ticker):
     # TODO: get token
     token = "pk_5a751015049443ac85c68c5c25a71fd9"
     response = requests.get(quote_endpoint.format(ticker) + token)
-    print(response.json()[0])
     data = response.json()[0]['lastSalePrice']
     peRatio = response.json()[0]['lastSaleTime']
     company = response.json()[0]['sector']
@@ -48,7 +47,7 @@ def chart(ticker):
   prices =[]
   quote_endpoint =("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={}&outputsize=compact&apikey=74MPQ68EA8UASL2C")
   response = requests.get(quote_endpoint.format(ticker))
-  print(response)
+  print(response.json())
   data = response.json()['Time Series (Daily)']
   for i in data:
     dates.append(i)
