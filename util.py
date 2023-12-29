@@ -3,17 +3,17 @@ from hashlib import sha512
 import random
 
 def get_price(ticker):
-    iex_base = "https://cloud.iexapis.com/stable"
-    quote_endpoint = iex_base + "/stock/{}/quote?token="
+    iex_base = "https://api.iex.cloud/v1/data/CORE/IEX_TOPS"
+    quote_endpoint = iex_base + "{}?token="
     # TODO: get token
-    token = "pk_bc007805b9a3487db96520c1baac3a07"
+    token = "pk_5a751015049443ac85c68c5c25a71fd9"
     response = requests.get(quote_endpoint.format(ticker) + token)#.json()['latestPrice']
     print(response)
-    data = response.json()['latestPrice']
-    peRatio = response.json()['peRatio']
-    company = response.json()['companyName']
+    data = response.json()['lastSalePrice']
+    peRatio = response.json()['lastSaleTime']
+    company = response.json()['sector']
     symbol = response.json()['symbol']
-    market = response.json()['marketCap']
+    market = response.json()['volume']
     return [company,symbol,data,peRatio,market] 
 
 def hash_pass(password, salt="SALT"):
@@ -27,12 +27,12 @@ def generate_key(length=15):
     return hashed_output[:length]
 
 def get_price_of_ticker(ticker):
-    iex_base = "https://cloud.iexapis.com/stable"
-    quote_endpoint = iex_base + "/stock/{}/quote?token="
+    iex_base = "https://api.iex.cloud/v1/data/CORE/IEX_TOPS"
+    quote_endpoint = iex_base + "{}?token="
     # TODO: get token
-    token = "pk_bc007805b9a3487db96520c1baac3a07"
+    token = "pk_5a751015049443ac85c68c5c25a71fd9"
     response = requests.get(quote_endpoint.format(ticker) + token)
-    data = response.json()['latestPrice']
+    data = response.json()['lastSalePrice']
     return data
 
 # def rec(ticker):
