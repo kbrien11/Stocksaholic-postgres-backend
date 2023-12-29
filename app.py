@@ -1,7 +1,7 @@
 from flask import Flask,jsonify,request
 from flask_sqlalchemy import SQLAlchemy
 # from flask_sqlalchemy import SQLAlchemy
-from util import hash_pass,generate_key, crypto_market_cap,Crypto_Exchange_Data, seven_day_crypto_chart, crypto_coins, Gemini_volume,Coinbase_volume,Binance_volume,get_price, generate_key,get_price_of_ticker, top_gainers,top_losers,crypto_news,usd_chart,crypto_stats,tracking_chart,Crypto,stats,stats_low,pe_ratio,day_change,chart,ytd_change,crypto_chart
+from util import hash_pass,generate_key, crypto_market_cap,Crypto_Exchange_Data, seven_day_crypto_chart, crypto_coins, Gemini_volume,Coinbase_volume,Binance_volume,get_price, generate_key,get_price_of_ticker, top_gainers,top_losers,crypto_news,usd_chart,crypto_stats,tracking_chart,Crypto,stats_low,pe_ratio,day_change,chart,ytd_change,crypto_chart
 from flask_marshmallow import Marshmallow
 from sqlalchemy.orm.attributes import flag_modified
 from sqlalchemy.sql import func
