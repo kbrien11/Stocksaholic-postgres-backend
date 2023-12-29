@@ -8,7 +8,7 @@ def get_price(ticker):
     # TODO: get token
     token = "pk_5a751015049443ac85c68c5c25a71fd9"
     response = requests.get(quote_endpoint.format(ticker) + token)[0]
-    print(response)
+    print(response.json()[0])
     data = response.json()['lastSalePrice']
     peRatio = response.json()['lastSaleTime']
     company = response.json()['sector']
@@ -32,7 +32,8 @@ def get_price_of_ticker(ticker):
     # TODO: get token
     token = "pk_5a751015049443ac85c68c5c25a71fd9"
     response = requests.get(quote_endpoint.format(ticker) + token)[0]
-    data = response.json()['lastSalePrice']
+    print(response.json()[0])
+    data = response.json()[0]['lastSalePrice']
     return data
 
 # def rec(ticker):
