@@ -3,22 +3,24 @@ from hashlib import sha512
 import random
 
 def get_price(ticker):
-  
-    response = requests.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={}&apikey=74MPQ68EA8UASL2C".format(ticker))
-    alphaRes = requests.get("https://www.alphavantage.co/query?function=OVERVIEW&symbol={}&apikey=74MPQ68EA8UASL2C".format(ticker))
-    
-    prices = response.json()["Time Series (Daily)"]
-    first = next(iter(prices))
-    print(first)
-    alphaData = alphaRes.json()
-    company = alphaData['Name']
-    symbol = ralphaData['Symbol']
-    Sector = alphaData['Sector']
-    high = alphaData['52WeekHigh']
-    low = alphaData['52WeekLow']
-    description = alphaData['Description']
-    return [company,symbol,price,Sector,high,low,description] 
-
+    try:
+      response = requests.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={}&apikey=74MPQ68EA8UASL2C".format(ticker))
+      alphaRes = requests.get("https://www.alphavantage.co/query?function=OVERVIEW&symbol={}&apikey=74MPQ68EA8UASL2C".format(ticker))
+      
+      prices = response.json()["Time Series (Daily)"]
+      first = next(iter(prices))
+      print(first)
+      alphaData = alphaRes.json()
+      company = alphaData['Name']
+      symbol = ralphaData['Symbol']
+      Sector = alphaData['Sector']
+      high = alphaData['52WeekHigh']
+      low = alphaData['52WeekLow']
+      description = alphaData['Description']
+      return [company,symbol,price,Sector,high,low,description] 
+    except KeyError:
+      return []
+      
 def hash_pass(password, salt="SALT"):
     new_pw = password + salt
     hashed_pw = sha512(new_pw.encode()).hexdigest()
@@ -49,14 +51,17 @@ def get_price_of_ticker(ticker):
 def chart(ticker):
   dates = []
   prices =[]
-  quote_endpoint =("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={}&outputsize=compact&apikey=74MPQ68EA8UASL2C")
-  response = requests.get(quote_endpoint.format(ticker))
-  print(response)
-  data = response.json()['Time Series (Daily)']
-  for i in data:
-    dates.append(i)
-    prices.append(data[i]['1. open'])
-  return dates,prices
+  try:
+    quote_endpoint =("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={}&outputsize=compact&apikey=74MPQ68EA8UASL2C")
+    response = requests.get(quote_endpoint.format(ticker))
+    data = response.json()['Time Series (Daily)']
+    for i in data:
+      dates.append(i)
+      prices.append(data[i]['1. open'])
+    return dates,prices
+  except KeyError:
+    return "", ""
+
 
 def usd_chart():
   dates = []
