@@ -6,6 +6,7 @@ def get_price(ticker):
   
     response = requests.get("https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={}&apikey=74MPQ68EA8UASL2C".format(ticker))
     alphaRes = requests.get("https://www.alphavantage.co/query?function=OVERVIEW&symbol={}&apikey=74MPQ68EA8UASL2C".format(ticker))
+    print(response.json())
     price = response.json()["Global Quote"]['05. price']
     alphaData = alphaRes.json()
     company = alphaData['Name']
