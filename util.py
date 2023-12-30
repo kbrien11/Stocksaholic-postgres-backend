@@ -4,12 +4,12 @@ import random
 
 def get_price(ticker):
   
-    response = requests.get("https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=74MPQ68EA8UASL2C".format(ticker)
+    response = requests.get("https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={}&apikey=74MPQ68EA8UASL2C".format(ticker))
     alphaRes = requests.get("https://www.alphavantage.co/query?function=OVERVIEW&symbol={}&apikey=74MPQ68EA8UASL2C".format(ticker))
     price = response.json()["Global Quote"]['05. price']
     alphaData = alphaRes.json()
     company = alphaData['Name']
-    symbol = response.json()[0]['symbol']
+    symbol = response.json()["Global Quote"]['01. symbol']
     Sector = alphaData['Sector']
     high = alphaData['52WeekHigh']
     low = alphaData['52WeekLow']
