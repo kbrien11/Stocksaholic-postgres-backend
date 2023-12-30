@@ -3,22 +3,18 @@ from hashlib import sha512
 import random
 
 def get_price(ticker):
-    iex_base = "https://api.iex.cloud/v1/data/CORE/IEX_TOPS/"
-    quote_endpoint = iex_base + "{}?token="
-    # TODO: get token
-    token = "pk_5a751015049443ac85c68c5c25a71fd9"
-    response = requests.get(quote_endpoint.format(ticker) + token)
+  
+    response = requests.get("https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=74MPQ68EA8UASL2C".format(ticker)
     alphaRes = requests.get("https://www.alphavantage.co/query?function=OVERVIEW&symbol={}&apikey=74MPQ68EA8UASL2C".format(ticker))
-    data = response.json()[0]['lastSalePrice']
+    price = response.json()["Global Quote"]['05. price']
     alphaData = alphaRes.json()
-    peRatio = alphaData['PERatio']
     company = alphaData['Name']
     symbol = response.json()[0]['symbol']
     Sector = alphaData['Sector']
     high = alphaData['52WeekHigh']
     low = alphaData['52WeekLow']
     description = alphaData['Description']
-    return [company,symbol,data,peRatio,Sector,high,low,description] 
+    return [company,symbol,price,Sector,high,low,description] 
 
 def hash_pass(password, salt="SALT"):
     new_pw = password + salt
