@@ -8,12 +8,17 @@ def get_price(ticker):
     # TODO: get token
     token = "pk_5a751015049443ac85c68c5c25a71fd9"
     response = requests.get(quote_endpoint.format(ticker) + token)
+    alphaRes = response.get("https://www.alphavantage.co/query?function=OVERVIEW&symbol={}&apikey=74MPQ68EA8UASL2C".format(ticker)
     data = response.json()[0]['lastSalePrice']
-    peRatio = response.json()[0]['lastSaleTime']
-    company = response.json()[0]['sector']
+    alphaData = alphaRes.json()
+    peRatio = alphaData['PERatio']
+    company = alphaData[['Name']
     symbol = response.json()[0]['symbol']
-    market = response.json()[0]['volume']
-    return [company,symbol,data,peRatio,market] 
+    Sector = alphaData['Sector']
+    high = alphaData['52WeekHigh']
+    low = alphaData['52WeekLow']
+    description = alphaData['Description']
+    return [company,symbol,data,peRatio,Sector,high,low,description] 
 
 def hash_pass(password, salt="SALT"):
     new_pw = password + salt
