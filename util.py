@@ -6,8 +6,7 @@ def get_price(ticker):
   
     response = requests.get("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={}&apikey=74MPQ68EA8UASL2C".format(ticker))
     alphaRes = requests.get("https://www.alphavantage.co/query?function=OVERVIEW&symbol={}&apikey=74MPQ68EA8UASL2C".format(ticker))
-    print(response.json())
-    first = next(iter(prices))
+    
     prices = response.json()["Time Series (Daily)"]
     first = next(iter(prices))
     print(first)
