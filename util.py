@@ -8,7 +8,7 @@ def get_price(ticker):
     # TODO: get token
     token = "pk_5a751015049443ac85c68c5c25a71fd9"
     response = requests.get(quote_endpoint.format(ticker) + token)
-    alphaRes = response.get("https://www.alphavantage.co/query?function=OVERVIEW&symbol={}&apikey=74MPQ68EA8UASL2C".format(ticker)
+    alphaRes = response.get("https://www.alphavantage.co/query?function=OVERVIEW&symbol={}&apikey=74MPQ68EA8UASL2C".format(ticker))
     data = response.json()[0]['lastSalePrice']
     alphaData = alphaRes.json()
     peRatio = alphaData['PERatio']
