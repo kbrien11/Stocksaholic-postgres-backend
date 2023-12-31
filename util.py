@@ -17,7 +17,7 @@ def get_price(ticker):
       high = alphaData['52WeekHigh']
       low = alphaData['52WeekLow']
       description = alphaData['Description']
-      return [company,symbol,price,Sector,high,low,description] 
+      return [company,symbol,Sector,high,low,description] 
     except KeyError:
       return []
       
