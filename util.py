@@ -12,7 +12,7 @@ def get_price(ticker):
       print(first)
       alphaData = alphaRes.json()
       company = alphaData['Name']
-      symbol = ralphaData['Symbol']
+      symbol = alphaData['Symbol']
       Sector = alphaData['Sector']
       high = alphaData['52WeekHigh']
       low = alphaData['52WeekLow']
