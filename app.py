@@ -513,8 +513,9 @@ def get_date(api_key):
 def equity_chart(api_key):
     user = db.session.query(Accounts).filter_by(api_key=api_key).first()
     result = user_schema.dump(user)
+    string_user_pk = str(user.pk)
     if user:
-        output = db.session.query(Date).filter_by(int(user_pk)=user.pk).distinct(Date.unix_time).order_by(Date.unix_time.asc())
+        output = db.session.query(Date).filter_by(user_pk=string_user_pk).distinct(Date.unix_time).order_by(Date.unix_time.asc())
         chart = date_schemas.dump(output)
         return date_schemas.jsonify(chart)
     return ({"error":"error"})
